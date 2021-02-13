@@ -40,12 +40,12 @@ let slideIndex = 0;
 const selectItem = (event, img) => {
   let element = event.target;
   element.classList.add('added');
- 
+
   let item = sliders.indexOf(img);
   if (item === -1) {
     sliders.push(img);
   } else {
-    alert('Hey, Already added !')
+    return;
   }
 }
 var timer
@@ -121,3 +121,12 @@ searchBtn.addEventListener('click', function () {
 sliderBtn.addEventListener('click', function () {
   createSlider()
 })
+
+
+// Enter key Button working area
+var inputImageArea = document.getElementById("search");
+inputImageArea.addEventListener("keyup", function (event) {
+  if (event.key == 'Enter') {
+    document.getElementById("search-btn").click();
+  }
+});
