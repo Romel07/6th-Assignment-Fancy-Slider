@@ -25,8 +25,9 @@ const showImages = (images) => {
     div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
     div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
     gallery.appendChild(div)
-  })
 
+  })
+    spinner.classList.toggle('d-none');
 }
 
 const getImages = (query) => {
@@ -42,10 +43,12 @@ const selectItem = (event, img) => {
   element.classList.add('added');
 
   let item = sliders.indexOf(img);
+  img.className = "deselect-image";
   if (item === -1) {
     sliders.push(img);
   } else {
-    return;
+    element.classList.toggle('added');
+    sliders.splice(item, 1);
   }
 }
 var timer
@@ -111,6 +114,7 @@ const changeSlide = (index) => {
 }
 
 searchBtn.addEventListener('click', function () {
+  spinner.classList.toggle('d-none');
   document.querySelector('.main').style.display = 'none';
   clearInterval(timer);
   const search = document.getElementById('search');
@@ -130,3 +134,6 @@ inputImageArea.addEventListener("keyup", function (event) {
     document.getElementById("search-btn").click();
   }
 });
+
+const spinner = document.getElementById('loading-spinner');
+
