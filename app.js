@@ -19,14 +19,14 @@ const showImages = (images) => {
   gallery.innerHTML = '';
   // show gallery title
   galleryHeader.style.display = 'flex';
-  // console.log(images);
-  images.forEach(image => {
+  images.forEach(image => {    
     let div = document.createElement('div');
     div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
     div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
     gallery.appendChild(div)
 
   })
+
     spinner.classList.toggle('d-none');
 }
 
@@ -35,6 +35,7 @@ const getImages = (query) => {
     .then(response => response.json())
     .then(data => showImages(data.hits))
     .catch(err => console.log(err))
+    // .then(data => console.log(data.hits[0].user));
 }
 
 let slideIndex = 0;
@@ -69,6 +70,7 @@ const createSlider = () => {
 
   sliderContainer.appendChild(prevNext)
   document.querySelector('.main').style.display = 'block';
+
   // hide image aria
   imagesArea.style.display = 'none';
   const duration = Math.abs(document.getElementById('duration').value) || 1000;
@@ -78,6 +80,7 @@ const createSlider = () => {
     item.innerHTML = `<img class="w-100"
     src="${slide}"
     alt="">`;
+    document.querySelector('body').style.background = '#EAC7BF';
     sliderContainer.appendChild(item)
   })
   changeSlide(0)
@@ -113,6 +116,8 @@ const changeSlide = (index) => {
   items[index].style.display = "block"
 }
 
+const spinner = document.getElementById('loading-spinner');
+
 searchBtn.addEventListener('click', function () {
   spinner.classList.toggle('d-none');
   document.querySelector('.main').style.display = 'none';
@@ -135,5 +140,5 @@ inputImageArea.addEventListener("keyup", function (event) {
   }
 });
 
-const spinner = document.getElementById('loading-spinner');
+
 
